@@ -67,11 +67,12 @@
   </head>
   <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300">
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root" class="flex h-screen items-center justify-center text-slate-400">Loading...</div>
 
     <!-- Main Application Script -->
     <script type="text/babel" data-presets="react,typescript">
       const { useState, useEffect } = React;
+      console.log("React script starting...");
 
       // --- Icons (SVG Paths) ---
       // Replacing lucide-react with direct SVGs for single-file portability
@@ -119,9 +120,9 @@
             role: "Bioinformatics Engineer",
             tagline: "Translator between genetic data and code",
             location: "Guangxi / Hunan, China",
-            intro: "PhD Candidate in Epidemiology & Biostatistics. I specialize in deciphering complex biological questions using multi-omics data (Single-cell RNA-seq, Spatial Transcriptomics, GWAS). I build reproducible analysis pipelines and data visualization tools.",
+            intro: "Researcher specialized in deciphering complex biological questions using multi-omics data (Single-cell RNA-seq, Spatial Transcriptomics, GWAS). I build reproducible analysis pipelines and data visualization tools.",
             bio: [
-              "I am a PhD candidate in Epidemiology and Biostatistics at Guangxi Medical University, mentored by Prof. Mo Zengnan. My academic journey began with a Bachelor's in Preventive Medicine, followed by a Master's degree where I started focusing on the genetic epidemiology of chronic non-communicable diseases.",
+              "I am a Bioinformatics Researcher with a background in Epidemiology and Biostatistics. My academic journey began with a Bachelor's in Preventive Medicine, followed by a Master's degree where I started focusing on the genetic epidemiology of chronic non-communicable diseases.",
               "Currently, my research bridges the gap between clinical data and complex genomics. I specialize in utilizing R and Python to build analysis pipelines for single-cell RNA sequencing and spatial transcriptomics. I am particularly interested in how genetic factors influence cardiovascular and renal diseases.",
               "I believe in literate programming. In my projects, I document my code extensively and maintain detailed Markdown documentation to ensure reproducibility and clarity for my team."
             ]
@@ -146,7 +147,6 @@
             readMore: "Read more",
             visitBlog: "Visit full blog",
             aboutTitle: "About Me",
-            publicationsTitle: "Publications",
             connectTitle: "Let's Connect",
             connectDesc: "Open for collaborations on single-cell analysis pipelines and genetic epidemiology research.",
             sendMessage: "Send Message",
@@ -221,19 +221,6 @@
               tags: ["Linux", "DevOps", "HPC"],
               link: "https://blog.example.com/server-setup"
             }
-          ],
-          publications: [
-            {
-              id: "pub1",
-              citation: "Long, X., Yan, B., & Mo, Z. (2023). Uncovering the heterogeneity and cell fate decisions of endothelial cells after myocardial infarction by single-cell sequencing. iLABMED.",
-              url: "https://doi.org/10.1002/med4.34",
-              status: "Published"
-            },
-            {
-              id: "pub2",
-              citation: "Long, X., et al. (n.d.). Genetic and causal associations of primary aldosteronism with cardiac magnetic resonance traits. Under revision in European Journal of Preventive Cardiology.",
-              status: "Under Revision"
-            }
           ]
         },
         zh: {
@@ -242,9 +229,9 @@
             role: "生物信息工程师",
             tagline: "基因数据与代码之间的翻译官",
             location: "中国 广西 / 湖南",
-            intro: "流行病与卫生统计学博士在读。我专注于利用多组学数据（单细胞RNA测序、空间转录组学、GWAS）解读复杂的生物学问题。我致力于构建可复现的分析流程和数据可视化工具。",
+            intro: "专注于多组学数据（单细胞RNA测序、空间转录组学、GWAS）分析的研究者。我致力于构建可复现的分析流程和数据可视化工具，解读复杂的生物学问题。",
             bio: [
-              "我是广西医科大学流行病与卫生统计学的博士研究生，师从莫曾南教授。我的学术生涯始于预防医学本科，随后在硕士阶段开始专注于慢性非传染性疾病的遗传流行病学研究。",
+              "我是一名生物信息学研究者，拥有流行病与卫生统计学背景。我的学术生涯始于预防医学本科，随后在硕士阶段开始专注于慢性非传染性疾病的遗传流行病学研究。",
               "目前，我的研究致力于连接临床数据与复杂的基因组学。我擅长使用 R 和 Python 构建单细胞 RNA 测序和空间转录组学的分析流程。我对遗传因素如何影响心血管和肾脏疾病特别感兴趣。",
               "我推崇“文学化编程”（Literate Programming）。在我的项目中，我会用中文详细注释代码，并维护详细的 Markdown 文档，以确保团队协作时的复现性和清晰度。"
             ]
@@ -269,7 +256,6 @@
             readMore: "阅读更多",
             visitBlog: "访问博客",
             aboutTitle: "关于我",
-            publicationsTitle: "论文发表",
             connectTitle: "保持联系",
             connectDesc: "欢迎就单细胞分析流程和遗传流行病学研究进行交流与合作。",
             sendMessage: "发送消息",
@@ -343,19 +329,6 @@
               description: "关于用户管理、环境模块 (Environment Modules) 和 Conda/Singularity 容器的最佳实践。",
               tags: ["Linux", "DevOps", "HPC"],
               link: "https://blog.example.com/server-setup"
-            }
-          ],
-          publications: [
-            {
-              id: "pub1",
-              citation: "Long, X., Yan, B., & Mo, Z. (2023). Uncovering the heterogeneity and cell fate decisions of endothelial cells after myocardial infarction by single-cell sequencing. iLABMED.",
-              url: "https://doi.org/10.1002/med4.34",
-              status: "Published"
-            },
-            {
-              id: "pub2",
-              citation: "Long, X., et al. (n.d.). Genetic and causal associations of primary aldosteronism with cardiac magnetic resonance traits. Under revision in European Journal of Preventive Cardiology.",
-              status: "Under Revision"
             }
           ]
         }
@@ -677,18 +650,6 @@
                 <SectionTitle>{t.ui.aboutTitle}</SectionTitle>
                 <div className="prose prose-slate dark:prose-invert max-w-none">
                   {t.personalInfo.bio.map((p, i) => <p key={i} className="text-lg leading-relaxed text-slate-600 dark:text-slate-300 mt-4 first:mt-0">{p}</p>)}
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-10 mb-6">{t.ui.publicationsTitle}</h3>
-                  <ul className="space-y-4 list-none pl-0">
-                    {t.publications.map((pub) => (
-                      <li key={pub.id} className="pl-4 border-l-2 border-slate-200 dark:border-slate-700">
-                        <p className="text-slate-700 dark:text-slate-300 italic">{pub.citation}</p>
-                        <div className="mt-1 flex gap-3">
-                          <span className={`text-xs font-bold px-2 py-0.5 rounded ${pub.status === 'Published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>{pub.status}</span>
-                          {pub.url && <a href={pub.url} className="text-xs text-primary-600 hover:underline flex items-center gap-1">DOI Link <Icons.ExternalLink size={10} /></a>}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               </div>
             </section>
