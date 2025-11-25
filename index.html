@@ -5,7 +5,7 @@
     <link rel="icon" href="https://picsum.photos/64" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0f172a" />
-    <title>Long Xinyang | Bioinformatics Engineer</title>
+    <title>Long Xinyang | Bioinformatics Researcher</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -31,15 +31,6 @@
             fontFamily: {
               sans: ['Inter', 'system-ui', 'sans-serif'],
               mono: ['JetBrains Mono', 'Menlo', 'monospace'],
-            },
-            animation: {
-              'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-            },
-            keyframes: {
-              fadeInUp: {
-                '0%': { opacity: '0', transform: 'translateY(20px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' },
-              }
             }
           },
         },
@@ -50,7 +41,7 @@
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
     
-    <!-- Babel Standalone (Allows writing JSX/TS directly in browser) -->
+    <!-- Babel Standalone -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <!-- Fonts -->
@@ -59,23 +50,23 @@
     <style>
       body { font-family: 'Inter', sans-serif; }
       pre, code { font-family: 'JetBrains Mono', monospace; }
-      .custom-scrollbar::-webkit-scrollbar { height: 8px; width: 8px; }
-      .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-      .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
-      .dark .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #475569; }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
+      .dark ::-webkit-scrollbar-thumb { background-color: #475569; }
+      ::-webkit-scrollbar-thumb:hover { background-color: #94a3b8; }
+      .dark ::-webkit-scrollbar-thumb:hover { background-color: #64748b; }
     </style>
   </head>
   <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300">
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root" class="flex h-screen items-center justify-center text-slate-400">Loading...</div>
+    <div id="root"></div>
 
     <!-- Main Application Script -->
-    <script type="text/babel" data-presets="react,typescript">
+    <script type="text/babel" data-presets="react">
       const { useState, useEffect } = React;
-      console.log("React script starting...");
 
-      // --- Icons (SVG Paths) ---
-      // Replacing lucide-react with direct SVGs for single-file portability
+      // --- Icons (SVG Components) ---
       const Icons = {
         Github: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>,
         Linkedin: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>,
@@ -97,34 +88,32 @@
         BarChart3: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
       };
 
-      // --- Data & Constants ---
-      
-      const SKILL_ICONS = [
-        { icon: Icons.Dna, label: "Genomics" },
-        { icon: Icons.Terminal, label: "Linux/Bash" },
-        { icon: Icons.Code2, label: "R & Python" },
-        { icon: Icons.BarChart3, label: "Data Viz" },
-        { icon: Icons.Database, label: "Biobanks" },
-        { icon: Icons.Activity, label: "Epidemiology" },
-      ];
-
+      // --- Data ---
       const CONTACT_INFO = {
         email: "longxinyang@foxmail.com",
-        github: "https://github.com/longxinyang"
+        github: "https://github.com/PiaoyangGuohai1"
       };
+
+      const SKILLS = [
+        { icon: "Dna", label: "Genomics" },
+        { icon: "Terminal", label: "Linux/Bash" },
+        { icon: "Code2", label: "R & Python" },
+        { icon: "BarChart3", label: "Data Viz" },
+        { icon: "Database", label: "Biobanks" },
+        { icon: "Activity", label: "Epidemiology" }
+      ];
 
       const CONTENT = {
         en: {
           personalInfo: {
             name: "Long Xinyang",
-            role: "Bioinformatics Engineer",
+            role: "Bioinformatics Researcher",
             tagline: "Translator between genetic data and code",
-            location: "Guangxi / Hunan, China",
             intro: "Researcher specialized in deciphering complex biological questions using multi-omics data (Single-cell RNA-seq, Spatial Transcriptomics, GWAS). I build reproducible analysis pipelines and data visualization tools.",
             bio: [
-              "I am a Bioinformatics Researcher with a background in Epidemiology and Biostatistics. My academic journey began with a Bachelor's in Preventive Medicine, followed by a Master's degree where I started focusing on the genetic epidemiology of chronic non-communicable diseases.",
+              "I am a Bioinformatics Researcher with a background in Epidemiology and Biostatistics.",
               "Currently, my research bridges the gap between clinical data and complex genomics. I specialize in utilizing R and Python to build analysis pipelines for single-cell RNA sequencing and spatial transcriptomics. I am particularly interested in how genetic factors influence cardiovascular and renal diseases.",
-              "I believe in literate programming. In my projects, I document my code extensively and maintain detailed Markdown documentation to ensure reproducibility and clarity for my team."
+              "I believe in literate programming. In my projects, I document my code extensively and maintain detailed Markdown documentation to ensure reproducibility and clarity."
             ]
           },
           navigation: {
@@ -136,23 +125,16 @@
             contact: "Contact"
           },
           ui: {
-            themeToggle: "Toggle Theme",
-            langToggle: "Switch Language",
             viewProjects: "View Repositories",
             readNotes: "Read Notes",
             viewCode: "View Code",
-            liveDemo: "Live Demo",
             openTool: "Open Tool",
-            targetAudience: "For",
-            readMore: "Read more",
-            visitBlog: "Visit full blog",
+            repoSubtitle: "Selected popular repositories and research projects.",
+            learningSubtitle: "Web tools I built for learning English and Programming.",
             aboutTitle: "About Me",
             connectTitle: "Let's Connect",
             connectDesc: "Open for collaborations on single-cell analysis pipelines and genetic epidemiology research.",
-            sendMessage: "Send Message",
-            footerText: "Powered by React & Tailwind CSS · Deployed on GitHub Pages",
-            repoSubtitle: "Selected popular repositories and research projects.",
-            learningSubtitle: "Web tools I built for learning English and Programming."
+            footerText: "Powered by GitHub Pages"
           },
           projects: [
             {
@@ -186,24 +168,24 @@
               title: "Bio-Academic English",
               description: "A vocabulary builder and phrase bank specifically for writing bioinformatics papers. Includes flashcards for common academic transitions.",
               category: "English",
-              url: "https://english.example.com"
+              url: "#"
             },
             {
               id: "t2",
               title: "R/Python Syntax Matcher",
               description: "Interactive tool to compare and learn data manipulation syntax between dplyr (R) and pandas (Python).",
               category: "Coding",
-              url: "https://code.example.com"
+              url: "#"
             }
           ],
           notes: [
-            {
+             {
               id: "n1",
               title: "Understanding Seurat v5 Object Structure",
               date: "2023-10-15",
               description: "A deep dive into the S4 object structure in R and how to manipulate assay data efficiently.",
               tags: ["R", "Seurat", "Single-cell"],
-              link: "https://blog.example.com/seurat-v5"
+              link: "#"
             },
             {
               id: "n2",
@@ -211,7 +193,7 @@
               date: "2023-09-01",
               description: "Step-by-step guide to TwoSampleMR for causal inference in epidemiology.",
               tags: ["Statistics", "GWAS", "Methodology"],
-              link: "https://blog.example.com/mr-guide"
+              link: "#"
             },
             {
               id: "n3",
@@ -219,19 +201,18 @@
               date: "2023-08-20",
               description: "Best practices for user management, environment modules, and conda/singularity containers.",
               tags: ["Linux", "DevOps", "HPC"],
-              link: "https://blog.example.com/server-setup"
+              link: "#"
             }
           ]
         },
         zh: {
           personalInfo: {
             name: "龙新阳",
-            role: "生物信息工程师",
+            role: "生物信息学研究者",
             tagline: "基因数据与代码之间的翻译官",
-            location: "中国 广西 / 湖南",
             intro: "专注于多组学数据（单细胞RNA测序、空间转录组学、GWAS）分析的研究者。我致力于构建可复现的分析流程和数据可视化工具，解读复杂的生物学问题。",
             bio: [
-              "我是一名生物信息学研究者，拥有流行病与卫生统计学背景。我的学术生涯始于预防医学本科，随后在硕士阶段开始专注于慢性非传染性疾病的遗传流行病学研究。",
+              "我是一名生物信息学研究者，拥有预防医学、流行病与卫生统计学背景。",
               "目前，我的研究致力于连接临床数据与复杂的基因组学。我擅长使用 R 和 Python 构建单细胞 RNA 测序和空间转录组学的分析流程。我对遗传因素如何影响心血管和肾脏疾病特别感兴趣。",
               "我推崇“文学化编程”（Literate Programming）。在我的项目中，我会用中文详细注释代码，并维护详细的 Markdown 文档，以确保团队协作时的复现性和清晰度。"
             ]
@@ -245,23 +226,16 @@
             contact: "联系"
           },
           ui: {
-            themeToggle: "切换主题",
-            langToggle: "切换语言",
             viewProjects: "查看代码仓库",
             readNotes: "阅读笔记",
             viewCode: "查看代码",
-            liveDemo: "在线演示",
             openTool: "打开工具",
-            targetAudience: "适用人群",
-            readMore: "阅读更多",
-            visitBlog: "访问博客",
+            repoSubtitle: "精选的热门代码仓库与研究项目。",
+            learningSubtitle: "我开发的用于辅助学习英语和编程的 Web 工具。",
             aboutTitle: "关于我",
             connectTitle: "保持联系",
             connectDesc: "欢迎就单细胞分析流程和遗传流行病学研究进行交流与合作。",
-            sendMessage: "发送消息",
-            footerText: "Powered by React & Tailwind CSS · Deployed on GitHub Pages",
-            repoSubtitle: "精选的热门代码仓库与研究项目。",
-            learningSubtitle: "我开发的用于辅助学习英语和编程的 Web 工具。"
+            footerText: "Deployed on GitHub Pages"
           },
           projects: [
             {
@@ -295,14 +269,14 @@
               title: "学术英语助手",
               description: "专为撰写生物信息学论文设计的词汇构建器和短语库。包含常用学术转折词的记忆卡片。",
               category: "English",
-              url: "https://english.example.com"
+              url: "#"
             },
             {
               id: "t2",
               title: "R/Python 语法对照",
               description: "交互式工具，用于对比学习 dplyr (R) 和 pandas (Python) 之间的数据处理语法。",
               category: "Coding",
-              url: "https://code.example.com"
+              url: "#"
             }
           ],
           notes: [
@@ -312,7 +286,7 @@
               date: "2023-10-15",
               description: "深入解析 R 中的 S4 对象结构以及如何高效处理 assay 数据。",
               tags: ["R", "Seurat", "Single-cell"],
-              link: "https://blog.example.com/seurat-v5"
+              link: "#"
             },
             {
               id: "n2",
@@ -320,7 +294,7 @@
               date: "2023-09-01",
               description: "流行病学因果推断工具 TwoSampleMR 的分步指南。",
               tags: ["Statistics", "GWAS", "Methodology"],
-              link: "https://blog.example.com/mr-guide"
+              link: "#"
             },
             {
               id: "n3",
@@ -328,14 +302,13 @@
               date: "2023-08-20",
               description: "关于用户管理、环境模块 (Environment Modules) 和 Conda/Singularity 容器的最佳实践。",
               tags: ["Linux", "DevOps", "HPC"],
-              link: "https://blog.example.com/server-setup"
+              link: "#"
             }
           ]
         }
       };
 
-      // --- Components ---
-
+      // --- Helper Components ---
       const SectionTitle = ({ children, subtitle }) => (
         <div className="mb-12">
           <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-3 before:content-[''] before:block before:w-2 before:h-8 before:bg-primary-500 before:rounded-full">
@@ -346,18 +319,11 @@
       );
 
       const Badge = ({ children, outline = false }) => {
-        if (outline) {
-          return (
-            <span className="px-2.5 py-0.5 rounded text-xs font-mono border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400">
-              {children}
-            </span>
-          );
-        }
-        return (
-          <span className="px-2.5 py-0.5 rounded text-xs font-medium font-mono bg-primary-100 text-primary-800 dark:bg-primary-900/30 dark:text-primary-300">
-            {children}
-          </span>
-        );
+        const baseClasses = "px-2.5 py-0.5 rounded text-xs font-medium font-mono inline-block";
+        const styleClasses = outline 
+          ? "border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400"
+          : "bg-primary-100 text-primary-800 dark:bg-primary-900/30 dark:text-primary-300";
+        return <span className={`${baseClasses} ${styleClasses}`}>{children}</span>;
       };
 
       const Card = ({ children, className = "" }) => (
@@ -366,14 +332,14 @@
         </div>
       );
 
-      // --- Main App ---
-
+      // --- Main App Component ---
       const App = () => {
         const [isDarkMode, setIsDarkMode] = useState(false);
         const [isMenuOpen, setIsMenuOpen] = useState(false);
         const [lang, setLang] = useState('en');
 
-        const t = CONTENT[lang];
+        // Safe access to translation
+        const t = CONTENT[lang] || CONTENT.en;
 
         useEffect(() => {
           if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -398,16 +364,16 @@
           { name: t.navigation.learning, href: '#learning' },
           { name: t.navigation.notes, href: '#notes' },
           { name: t.navigation.about, href: '#about' },
-          { name: t.navigation.contact, href: '#contact' },
         ];
 
         return (
-          <div className={`min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-300 ${lang === 'zh' ? 'font-sans-sc' : ''}`}>
+          <div className={`min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-300`}>
             
-            {/* Navigation */}
-            <nav className="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
-              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-16">
+            {/* Fixed Navigation Bar */}
+            <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 h-16">
+              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+                <div className="flex justify-between items-center h-full">
+                  {/* Logo */}
                   <div className="flex-shrink-0 flex items-center">
                     <span className="font-bold text-xl font-mono text-slate-900 dark:text-slate-100">
                       {lang === 'en' ? 'LongXinyang' : '龙新阳'}<span className="text-primary-500">.bio</span>
@@ -441,9 +407,9 @@
                     </button>
                   </div>
 
-                  {/* Mobile Menu Button */}
+                  {/* Mobile Toggle */}
                   <div className="md:hidden flex items-center gap-4">
-                    <button onClick={toggleLanguage} className="text-xs font-bold text-slate-600 dark:text-slate-300">
+                     <button onClick={toggleLanguage} className="text-xs font-bold text-slate-600 dark:text-slate-300 px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">
                       {lang.toUpperCase()}
                     </button>
                     <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 text-slate-600 dark:text-slate-300">
@@ -453,9 +419,9 @@
                 </div>
               </div>
 
-              {/* Mobile Menu */}
+              {/* Mobile Menu Dropdown */}
               {isMenuOpen && (
-                <div className="md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+                <div className="md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-lg">
                   <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                     {navLinks.map((link) => (
                       <a
@@ -467,12 +433,9 @@
                         {link.name}
                       </a>
                     ))}
-                    <div className="flex gap-2 px-3 pt-2">
-                      <button onClick={toggleLanguage} className="flex-1 py-2 text-center rounded bg-slate-100 dark:bg-slate-800 text-sm">
-                        {lang === 'en' ? '中文' : 'English'}
-                      </button>
-                      <button onClick={toggleTheme} className="flex-1 py-2 flex justify-center rounded bg-slate-100 dark:bg-slate-800">
-                        {isDarkMode ? <Icons.Sun size={18}/> : <Icons.Moon size={18}/>}
+                    <div className="flex gap-2 px-3 pt-4 border-t border-slate-100 dark:border-slate-800 mt-2">
+                       <button onClick={toggleTheme} className="flex-1 py-2 flex items-center justify-center gap-2 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                        {isDarkMode ? <><Icons.Sun size={18}/> Light</> : <><Icons.Moon size={18}/> Dark</>}
                       </button>
                     </div>
                   </div>
@@ -480,201 +443,208 @@
               )}
             </nav>
 
-            {/* Hero Section */}
-            <section id="home" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
-              <div className="flex-1 space-y-6 animate-fade-in-up">
-                <Badge>{t.personalInfo.role}</Badge>
-                <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight">
-                  Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-teal-400">{t.personalInfo.name}</span>
-                </h1>
-                <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-light">
-                  {t.personalInfo.tagline}
-                </p>
-                <p className="text-lg text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
-                  {t.personalInfo.intro}
-                </p>
-                
-                <div className="flex flex-wrap gap-4 pt-4">
-                  <a href="#projects" className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors shadow-lg shadow-primary-500/20">
-                    {t.ui.viewProjects}
-                  </a>
-                  <a href="#notes" className="px-6 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-lg font-medium hover:border-primary-500 transition-colors">
-                    {t.ui.readNotes}
-                  </a>
-                </div>
-
-                <div className="pt-8 flex gap-6 text-slate-400">
-                  {SKILL_ICONS.map((Skill, idx) => (
-                    <div key={idx} className="flex flex-col items-center gap-2 group cursor-default" title={Skill.label}>
-                        <div className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 group-hover:text-primary-500 transition-colors">
-                          <Skill.icon size={20} />
-                        </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            {/* Main Content Container - adjusted top padding for fixed header */}
+            <main className="pt-24 pb-12">
               
-              {/* Graphic */}
-              <div className="flex-1 w-full max-w-md md:max-w-full flex justify-center">
-                  <div className="relative w-64 h-64 md:w-80 md:h-80">
-                    <div className="absolute inset-0 bg-primary-200 dark:bg-primary-900/20 rounded-full blur-3xl opacity-50 animate-pulse"></div>
-                    <div className="relative w-full h-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
-                      <div className="flex items-center gap-2 mb-4 border-b border-slate-100 dark:border-slate-700 pb-2">
-                        <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                        <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-                        <div className="w-3 h-3 rounded-full bg-green-400"></div>
-                        <span className="ml-auto font-mono text-xs text-slate-400">analysis.R</span>
-                      </div>
-                      <div className="space-y-2 font-mono text-xs text-slate-600 dark:text-slate-400">
-                        <div className="flex gap-2">
-                          <span className="text-purple-500">library</span>
-                          <span className="text-slate-800 dark:text-slate-200">(Seurat)</span>
-                        </div>
-                        <div className="flex gap-2">
-                          <span className="text-purple-500">data</span>
-                          <span className="text-blue-500">&lt;-</span>
-                          <span className="text-yellow-600 dark:text-yellow-500">Read10X</span>
-                          <span>(dir)</span>
-                        </div>
-                        <div className="flex gap-2">
-                          <span className="text-purple-500">obj</span>
-                          <span className="text-blue-500">&lt;-</span>
-                          <span className="text-yellow-600 dark:text-yellow-500">NormalizeData</span>
-                          <span>(obj)</span>
-                        </div>
-                        <div className="mt-6 p-2 bg-slate-50 dark:bg-slate-900 rounded border border-slate-100 dark:border-slate-700 text-center text-primary-600 text-xs">
-                          Analyzed 32 samples...
-                        </div>
-                      </div>
+              {/* Hero Section */}
+              <section id="home" className="min-h-[80vh] flex flex-col justify-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+                <div className="flex flex-col md:flex-row items-center gap-12">
+                  <div className="flex-1 space-y-8 text-center md:text-left">
+                    <Badge>{t.personalInfo.role}</Badge>
+                    <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight">
+                      Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-teal-400">{t.personalInfo.name}</span>
+                    </h1>
+                    <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-light">
+                      {t.personalInfo.tagline}
+                    </p>
+                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-lg mx-auto md:mx-0 leading-relaxed">
+                      {t.personalInfo.intro}
+                    </p>
+                    
+                    <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-4">
+                      <a href="#projects" className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors shadow-lg shadow-primary-500/20">
+                        {t.ui.viewProjects}
+                      </a>
+                      <a href="#notes" className="px-6 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-lg font-medium hover:border-primary-500 transition-colors">
+                        {t.ui.readNotes}
+                      </a>
+                    </div>
+
+                    <div className="pt-8 flex justify-center md:justify-start gap-6 text-slate-400">
+                      {SKILLS.map((skill, idx) => {
+                        const IconComponent = Icons[skill.icon] || Icons.Code2;
+                        return (
+                          <div key={idx} className="flex flex-col items-center gap-2 group cursor-default" title={skill.label}>
+                              <div className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 group-hover:text-primary-500 transition-colors">
+                                <IconComponent size={20} />
+                              </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
-              </div>
-            </section>
-
-            {/* Projects Section */}
-            <section id="projects" className="py-20 bg-white dark:bg-slate-800/50">
-              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <SectionTitle subtitle={t.ui.repoSubtitle}>{t.navigation.projects}</SectionTitle>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {t.projects.map((project) => (
-                    <Card key={project.id} className="flex flex-col h-full p-6">
-                      <div className="flex justify-between items-start mb-4">
-                        <div className="p-2 bg-slate-100 dark:bg-slate-700 rounded-lg text-slate-600 dark:text-slate-300">
-                          <Icons.Github size={20} />
+                  
+                  {/* Decorative Graphic */}
+                  <div className="flex-1 w-full max-w-md md:max-w-full flex justify-center mt-8 md:mt-0">
+                      <div className="relative w-64 h-64 md:w-80 md:h-80">
+                        <div className="absolute inset-0 bg-primary-200 dark:bg-primary-900/20 rounded-full blur-3xl opacity-50"></div>
+                        <div className="relative w-full h-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                          <div className="flex items-center gap-2 mb-4 border-b border-slate-100 dark:border-slate-700 pb-2">
+                            <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                            <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                            <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                            <span className="ml-auto font-mono text-xs text-slate-400">analysis.R</span>
+                          </div>
+                          <div className="space-y-3 font-mono text-xs text-slate-600 dark:text-slate-400">
+                            <div className="flex gap-2">
+                              <span className="text-purple-500">library</span>
+                              <span className="text-slate-800 dark:text-slate-200">(Seurat)</span>
+                            </div>
+                            <div className="flex gap-2">
+                              <span className="text-purple-500">data</span>
+                              <span className="text-blue-500">&lt;-</span>
+                              <span className="text-yellow-600 dark:text-yellow-500">Read10X</span>
+                              <span>(dir)</span>
+                            </div>
+                            <div className="flex gap-2">
+                              <span className="text-purple-500">obj</span>
+                              <span className="text-blue-500">&lt;-</span>
+                              <span className="text-yellow-600 dark:text-yellow-500">NormalizeData</span>
+                              <span>(obj)</span>
+                            </div>
+                            <div className="flex gap-2 text-slate-400 italic">
+                              # 32 samples processed
+                            </div>
+                            <div className="mt-6 p-3 bg-slate-50 dark:bg-slate-900 rounded border border-slate-100 dark:border-slate-700 text-center text-primary-600 text-xs">
+                               Running Pipeline...
+                            </div>
+                          </div>
                         </div>
-                        <Badge outline>{project.status}</Badge>
                       </div>
-                      <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">{project.title}</h3>
-                      <p className="text-slate-600 dark:text-slate-400 text-sm mb-6 flex-grow">{project.description}</p>
-                      <div className="space-y-4">
-                        <div className="flex flex-wrap gap-2">
-                          {project.tags.map(tag => (
-                            <span key={tag} className="text-xs font-mono text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 px-2 py-1 rounded">{tag}</span>
-                          ))}
+                  </div>
+                </div>
+              </section>
+
+              {/* Projects Section */}
+              <section id="projects" className="py-20 bg-white dark:bg-slate-800/50">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <SectionTitle subtitle={t.ui.repoSubtitle}>{t.navigation.projects}</SectionTitle>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {t.projects && t.projects.map((project) => (
+                      <Card key={project.id} className="flex flex-col h-full p-6">
+                        <div className="flex justify-between items-start mb-4">
+                          <div className="p-2 bg-slate-100 dark:bg-slate-700 rounded-lg text-slate-600 dark:text-slate-300">
+                            <Icons.Github size={20} />
+                          </div>
+                          <Badge outline>{project.status}</Badge>
                         </div>
-                        <div className="flex gap-4 pt-4 border-t border-slate-100 dark:border-slate-700">
-                          <a href={project.githubUrl} className="flex items-center text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400">
-                            {t.ui.viewCode} <Icons.ChevronRight size={16} className="ml-1" />
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">{project.title}</h3>
+                        <p className="text-slate-600 dark:text-slate-400 text-sm mb-6 flex-grow">{project.description}</p>
+                        <div className="space-y-4">
+                          <div className="flex flex-wrap gap-2">
+                            {project.tags.map(tag => (
+                              <span key={tag} className="text-xs font-mono text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 px-2 py-1 rounded">{tag}</span>
+                            ))}
+                          </div>
+                          <div className="flex gap-4 pt-4 border-t border-slate-100 dark:border-slate-700">
+                            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400">
+                              {t.ui.viewCode} <Icons.ChevronRight size={16} className="ml-1" />
+                            </a>
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              {/* Learning Tools Section */}
+              <section id="learning" className="py-20">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <SectionTitle subtitle={t.ui.learningSubtitle}>{t.navigation.learning}</SectionTitle>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {t.learningTools && t.learningTools.map((tool) => (
+                      <Card key={tool.id} className="p-6 border-l-4 border-l-primary-500">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                          <div>
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+                              <Icons.GraduationCap size={20} className="text-primary-500"/>
+                              {tool.title}
+                            </h3>
+                            <div className="mt-1"><Badge outline>{tool.category}</Badge></div>
+                          </div>
+                          <a href={tool.url} className="inline-flex items-center justify-center px-4 py-2 bg-slate-900 dark:bg-slate-700 text-white rounded-lg text-sm font-medium hover:bg-primary-600 transition-colors">
+                            {t.ui.openTool}
                           </a>
                         </div>
-                      </div>
-                    </Card>
-                  ))}
+                        <p className="mt-4 text-slate-600 dark:text-slate-400 text-sm">{tool.description}</p>
+                      </Card>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </section>
+              </section>
 
-            {/* Learning Tools Section */}
-            <section id="learning" className="py-20">
-              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <SectionTitle subtitle={t.ui.learningSubtitle}>{t.navigation.learning}</SectionTitle>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {t.learningTools.map((tool) => (
-                    <Card key={tool.id} className="p-6 border-l-4 border-l-primary-500">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                        <div>
-                          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                            <Icons.GraduationCap size={20} className="text-primary-500"/>
-                            {tool.title}
-                          </h3>
-                          <Badge outline>{tool.category}</Badge>
+              {/* Notes Section */}
+              <section id="notes" className="py-20 bg-slate-50 dark:bg-slate-800/30">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <SectionTitle subtitle={lang === 'en' ? "Technical notes & tutorials." : "技术笔记与教程"}>{t.navigation.notes}</SectionTitle>
+                  <div className="space-y-6">
+                    {t.notes && t.notes.map((note) => (
+                      <div key={note.id} className="group relative bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-primary-300 transition-all">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
+                          <div className="flex items-center gap-3">
+                            <Icons.BookOpen size={18} className="text-slate-400" />
+                            <span className="text-xs font-mono text-slate-500 uppercase tracking-wider">{note.date}</span>
+                          </div>
+                          <div className="flex gap-2">
+                            {note.tags.map(tag => <Badge key={tag} outline>{tag}</Badge>)}
+                          </div>
                         </div>
-                        <a href={tool.url} className="inline-flex items-center justify-center px-4 py-2 bg-slate-900 dark:bg-slate-700 text-white rounded-lg text-sm font-medium hover:bg-primary-600 transition-colors">
-                          {t.ui.openTool}
-                        </a>
-                      </div>
-                      <p className="mt-4 text-slate-600 dark:text-slate-400 text-sm">{tool.description}</p>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            {/* Notes Section */}
-            <section id="notes" className="py-20 bg-slate-50 dark:bg-slate-800/30">
-              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <SectionTitle subtitle={lang === 'en' ? "Technical notes & tutorials." : "技术笔记与教程"}>{t.navigation.notes}</SectionTitle>
-                <div className="space-y-6">
-                  {t.notes.map((note) => (
-                    <div key={note.id} className="group relative bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-primary-300 transition-all">
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
-                        <div className="flex items-center gap-3">
-                          <Icons.BookOpen size={18} className="text-slate-400" />
-                          <span className="text-xs font-mono text-slate-500 uppercase tracking-wider">{note.date}</span>
-                        </div>
-                        <div className="flex gap-2">
-                          {note.tags.map(tag => <Badge key={tag} outline>{tag}</Badge>)}
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-2 mb-2 group-hover:text-primary-600 transition-colors">
+                          <a href={note.link}>{note.title}</a>
+                        </h3>
+                        <p className="text-slate-600 dark:text-slate-400 text-sm max-w-3xl">{note.description}</p>
+                        <div className="mt-4 flex items-center text-primary-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0">
+                          {t.ui.readMore} <Icons.ChevronRight size={16} />
                         </div>
                       </div>
-                      <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-2 mb-2 group-hover:text-primary-600 transition-colors">
-                        <a href={note.link}>{note.title}</a>
-                      </h3>
-                      <p className="text-slate-600 dark:text-slate-400 text-sm max-w-3xl">{note.description}</p>
-                      <div className="mt-4 flex items-center text-primary-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0">
-                        {t.ui.readMore} <Icons.ChevronRight size={16} />
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-                <div className="mt-8 text-center">
-                  <a href="https://blog.example.com" className="text-slate-500 hover:text-primary-600 text-sm font-medium inline-flex items-center gap-1 transition-colors">
-                    {t.ui.visitBlog} <Icons.ExternalLink size={14}/>
-                  </a>
-                </div>
-              </div>
-            </section>
+              </section>
 
-            {/* About Section */}
-            <section id="about" className="py-20">
-              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <SectionTitle>{t.ui.aboutTitle}</SectionTitle>
-                <div className="prose prose-slate dark:prose-invert max-w-none">
-                  {t.personalInfo.bio.map((p, i) => <p key={i} className="text-lg leading-relaxed text-slate-600 dark:text-slate-300 mt-4 first:mt-0">{p}</p>)}
+              {/* About Section */}
+              <section id="about" className="py-20">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <SectionTitle>{t.ui.aboutTitle}</SectionTitle>
+                  <div className="prose prose-slate dark:prose-invert max-w-none">
+                    {t.personalInfo.bio.map((p, i) => <p key={i} className="text-lg leading-relaxed text-slate-600 dark:text-slate-300 mt-4 first:mt-0">{p}</p>)}
+                  </div>
                 </div>
-              </div>
-            </section>
+              </section>
 
-            {/* Contact Section */}
-            <section id="contact" className="py-20 bg-slate-900 text-slate-300">
-              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 className="text-3xl font-bold text-white mb-6">{t.ui.connectTitle}</h2>
-                <p className="mb-10 text-lg text-slate-400">{t.ui.connectDesc}</p>
-                <div className="flex justify-center gap-8 mb-12">
-                  <a href={`mailto:${CONTACT_INFO.email}`} className="flex flex-col items-center gap-2 hover:text-primary-400 transition-colors">
-                    <div className="p-4 bg-slate-800 rounded-full"><Icons.Mail size={24} /></div>
-                    <span className="text-sm">Email</span>
-                  </a>
-                  <a href={CONTACT_INFO.github} className="flex flex-col items-center gap-2 hover:text-primary-400 transition-colors">
-                    <div className="p-4 bg-slate-800 rounded-full"><Icons.Github size={24} /></div>
-                    <span className="text-sm">GitHub</span>
-                  </a>
-                  <a href="#" className="flex flex-col items-center gap-2 hover:text-primary-400 transition-colors">
-                    <div className="p-4 bg-slate-800 rounded-full"><Icons.Linkedin size={24} /></div>
-                    <span className="text-sm">LinkedIn</span>
-                  </a>
+              {/* Contact Section */}
+              <section id="contact" className="py-20 bg-slate-900 text-slate-300">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                  <h2 className="text-3xl font-bold text-white mb-6">{t.ui.connectTitle}</h2>
+                  <p className="mb-10 text-lg text-slate-400">{t.ui.connectDesc}</p>
+                  <div className="flex justify-center gap-8 mb-12">
+                    <a href={`mailto:${CONTACT_INFO.email}`} className="flex flex-col items-center gap-2 hover:text-primary-400 transition-colors">
+                      <div className="p-4 bg-slate-800 rounded-full"><Icons.Mail size={24} /></div>
+                      <span className="text-sm">Email</span>
+                    </a>
+                    <a href={CONTACT_INFO.github} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 hover:text-primary-400 transition-colors">
+                      <div className="p-4 bg-slate-800 rounded-full"><Icons.Github size={24} /></div>
+                      <span className="text-sm">GitHub</span>
+                    </a>
+                    <a href="#" className="flex flex-col items-center gap-2 hover:text-primary-400 transition-colors">
+                      <div className="p-4 bg-slate-800 rounded-full"><Icons.Linkedin size={24} /></div>
+                      <span className="text-sm">LinkedIn</span>
+                    </a>
+                  </div>
                 </div>
-              </div>
-            </section>
+              </section>
+            </main>
 
             <footer className="py-8 bg-slate-950 text-slate-500 text-sm text-center border-t border-slate-900">
               <p>© {new Date().getFullYear()} {t.personalInfo.name}. All rights reserved.</p>
