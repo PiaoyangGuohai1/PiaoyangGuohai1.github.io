@@ -19,7 +19,7 @@ export interface Project {
   tags: TechStack[];
   githubUrl: string;
   demoUrl?: string;
-  status: "Completed" | "In Progress";
+  status: "Completed" | "In Progress" | "Maintained";
 }
 
 export interface Note {
@@ -31,11 +31,11 @@ export interface Note {
   link: string;
 }
 
-export interface AppItem {
+export interface LearningTool {
   id: string;
-  name: string;
+  title: string;
   description: string;
-  targetAudience: string;
+  category: "English" | "Coding" | "Other";
   url: string;
 }
 

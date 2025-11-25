@@ -10,14 +10,14 @@ import {
   X,
   ChevronRight,
   BookOpen,
-  Server
+  GraduationCap,
+  Languages
 } from 'lucide-react';
-import { PERSONAL_INFO, PROJECTS, APPS, NOTES, PUBLICATIONS, SKILL_ICONS } from './constants';
-import { TechStack } from './types';
+import { CONTENT, SKILL_ICONS, CONTACT_INFO } from './constants';
 
 // --- Reusable Components ---
 
-const SectionTitle = ({ children, subtitle }: { children: React.ReactNode; subtitle?: string }) => (
+const SectionTitle: React.FC<{ children: React.ReactNode; subtitle?: string }> = ({ children, subtitle }) => (
   <div className="mb-12">
     <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-3 before:content-[''] before:block before:w-2 before:h-8 before:bg-primary-500 before:rounded-full">
       {children}
@@ -26,7 +26,7 @@ const SectionTitle = ({ children, subtitle }: { children: React.ReactNode; subti
   </div>
 );
 
-const Badge = ({ children, outline = false }: { children: React.ReactNode; outline?: boolean }) => {
+const Badge: React.FC<{ children: React.ReactNode; outline?: boolean }> = ({ children, outline = false }) => {
   if (outline) {
     return (
       <span className="px-2.5 py-0.5 rounded text-xs font-mono border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400">
@@ -41,7 +41,7 @@ const Badge = ({ children, outline = false }: { children: React.ReactNode; outli
   );
 };
 
-const Card = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
+const Card: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className = "" }) => (
   <div className={`bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow duration-300 ${className}`}>
     {children}
   </div>
@@ -52,6 +52,9 @@ const Card = ({ children, className = "" }: { children: React.ReactNode; classNa
 const App: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [lang, setLang] = useState<'en' | 'zh'>('en'); // Default to English
+
+  const t = CONTENT[lang]; // Translation helper
 
   // Toggle Dark Mode
   useEffect(() => {
@@ -69,18 +72,22 @@ const App: React.FC = () => {
   }, [isDarkMode]);
 
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
+  
+  const toggleLanguage = () => {
+    setLang(prev => prev === 'en' ? 'zh' : 'en');
+  };
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Apps', href: '#apps' },
-    { name: 'Notes', href: '#notes' },
-    { name: 'About', href: '#about' },
-    { name: 'Contact', href: '#contact' },
+    { name: t.navigation.home, href: '#home' },
+    { name: t.navigation.projects, href: '#projects' },
+    { name: t.navigation.learning, href: '#learning' },
+    { name: t.navigation.notes, href: '#notes' },
+    { name: t.navigation.about, href: '#about' },
+    { name: t.navigation.contact, href: '#contact' },
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+    <div className={`min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-300 ${lang === 'zh' ? 'font-sans-sc' : ''}`}>
       
       {/* --- Navigation --- */}
       <nav className="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
@@ -88,12 +95,12 @@ const App: React.FC = () => {
           <div className="flex justify-between items-center h-16">
             <div className="flex-shrink-0 flex items-center">
               <span className="font-bold text-xl font-mono text-slate-900 dark:text-slate-100">
-                {PERSONAL_INFO.name}<span className="text-primary-500">.bio</span>
+                {lang === 'en' ? 'LongXinyang' : '龙新阳'}<span className="text-primary-500">.bio</span>
               </span>
             </div>
             
             {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-6">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
@@ -103,17 +110,32 @@ const App: React.FC = () => {
                   {link.name}
                 </a>
               ))}
+              <div className="h-6 w-px bg-slate-200 dark:bg-slate-700 mx-2"></div>
+              <button
+                onClick={toggleLanguage}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-xs font-medium text-slate-700 dark:text-slate-300"
+                aria-label={t.ui.langToggle}
+              >
+                <Languages size={14} />
+                <span>{lang === 'en' ? 'CN' : 'EN'}</span>
+              </button>
               <button
                 onClick={toggleTheme}
                 className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-400"
-                aria-label="Toggle Dark Mode"
+                aria-label={t.ui.themeToggle}
               >
                 {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
               </button>
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center">
+            <div className="md:hidden flex items-center gap-4">
+              <button
+                onClick={toggleLanguage}
+                className="flex items-center gap-1 text-slate-600 dark:text-slate-300"
+              >
+                <span className="text-xs font-bold">{lang.toUpperCase()}</span>
+              </button>
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="p-2 rounded-md text-slate-600 dark:text-slate-300"
@@ -138,14 +160,25 @@ const App: React.FC = () => {
                   {link.name}
                 </a>
               ))}
+               <button
+                onClick={() => {
+                  toggleLanguage();
+                  setIsMenuOpen(false);
+                }}
+                className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:text-primary-600 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2"
+              >
+                <Languages size={18} />
+                {t.ui.langToggle}
+              </button>
               <button
                 onClick={() => {
                   toggleTheme();
                   setIsMenuOpen(false);
                 }}
-                className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:text-primary-600 hover:bg-slate-50 dark:hover:bg-slate-800"
+                className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:text-primary-600 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2"
               >
-                {isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                {isDarkMode ? <Sun size={18}/> : <Moon size={18}/>}
+                {t.ui.themeToggle}
               </button>
             </div>
           </div>
@@ -155,15 +188,15 @@ const App: React.FC = () => {
       {/* --- Hero Section --- */}
       <section id="home" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
         <div className="flex-1 space-y-6 animate-fade-in-up">
-          <Badge>Bioinformatics & Epidemiology</Badge>
+          <Badge>{t.personalInfo.role}</Badge>
           <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight">
-            Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-teal-400">{PERSONAL_INFO.name}</span>
+            Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-teal-400">{t.personalInfo.name}</span>
           </h1>
           <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-light">
-            {PERSONAL_INFO.tagline}
+            {t.personalInfo.tagline}
           </p>
           <p className="text-lg text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
-            {PERSONAL_INFO.intro}
+            {t.personalInfo.intro}
           </p>
           
           <div className="flex flex-wrap gap-4 pt-4">
@@ -171,13 +204,13 @@ const App: React.FC = () => {
               href="#projects"
               className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors shadow-lg shadow-primary-500/20"
             >
-              View Projects
+              {t.ui.viewProjects}
             </a>
             <a 
               href="#notes"
               className="px-6 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-lg font-medium hover:border-primary-500 transition-colors"
             >
-              Read Notes
+              {t.ui.readNotes}
             </a>
           </div>
 
@@ -195,7 +228,7 @@ const App: React.FC = () => {
           </div>
         </div>
         
-        {/* Abstract "Hero Image" replacement - CSS Geometric visualization */}
+        {/* CSS Geometric visualization */}
         <div className="flex-1 w-full max-w-md md:max-w-full flex justify-center">
             <div className="relative w-64 h-64 md:w-80 md:h-80">
               <div className="absolute inset-0 bg-primary-200 dark:bg-primary-900/20 rounded-full blur-3xl opacity-50 animate-pulse"></div>
@@ -241,15 +274,15 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* --- Projects Section --- */}
+      {/* --- Projects/Repositories Section --- */}
       <section id="projects" className="py-20 bg-white dark:bg-slate-800/50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionTitle subtitle="Selected research projects involving large-scale genomic data analysis.">
-            Projects
+          <SectionTitle subtitle={t.ui.repoSubtitle}>
+            {t.navigation.projects}
           </SectionTitle>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {PROJECTS.map((project) => (
+            {t.projects.map((project) => (
               <Card key={project.id} className="flex flex-col h-full p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div className="p-2 bg-slate-100 dark:bg-slate-700 rounded-lg text-slate-600 dark:text-slate-300">
@@ -276,13 +309,8 @@ const App: React.FC = () => {
                   
                   <div className="flex gap-4 pt-4 border-t border-slate-100 dark:border-slate-700">
                     <a href={project.githubUrl} className="flex items-center text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400">
-                      View Code <ChevronRight size={16} className="ml-1" />
+                      {t.ui.viewCode} <ChevronRight size={16} className="ml-1" />
                     </a>
-                    {project.demoUrl && (
-                      <a href={project.demoUrl} className="flex items-center text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400">
-                        Live Demo <ExternalLink size={14} className="ml-1" />
-                      </a>
-                    )}
                   </div>
                 </div>
               </Card>
@@ -291,35 +319,33 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* --- Apps Section --- */}
-      <section id="apps" className="py-20">
+      {/* --- Learning Tools Section --- */}
+      <section id="learning" className="py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-           <SectionTitle subtitle="Web-based tools deployed on my cloud server for data visualization and quick analysis.">
-            Mini Apps
+           <SectionTitle subtitle={t.ui.learningSubtitle}>
+            {t.navigation.learning}
           </SectionTitle>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {APPS.map((app) => (
-              <Card key={app.id} className="p-6 border-l-4 border-l-primary-500">
+            {t.learningTools.map((tool) => (
+              <Card key={tool.id} className="p-6 border-l-4 border-l-primary-500">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
                     <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                      <Server size={18} className="text-primary-500"/>
-                      {app.name}
+                      <GraduationCap size={20} className="text-primary-500"/>
+                      {tool.title}
                     </h3>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                      For: {app.targetAudience}
-                    </p>
+                    <Badge outline>{tool.category}</Badge>
                   </div>
                   <a 
-                    href={app.url}
+                    href={tool.url}
                     className="inline-flex items-center justify-center px-4 py-2 bg-slate-900 dark:bg-slate-700 text-white rounded-lg text-sm font-medium hover:bg-primary-600 dark:hover:bg-primary-600 transition-colors"
                   >
-                    Launch App
+                    {t.ui.openTool}
                   </a>
                 </div>
                 <p className="mt-4 text-slate-600 dark:text-slate-400 text-sm">
-                  {app.description}
+                  {tool.description}
                 </p>
               </Card>
             ))}
@@ -330,12 +356,12 @@ const App: React.FC = () => {
       {/* --- Notes Section --- */}
       <section id="notes" className="py-20 bg-slate-50 dark:bg-slate-800/30">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionTitle subtitle="Technical notes, tutorials, and thoughts on bioinformatics methodology.">
-            Notes
+          <SectionTitle subtitle={lang === 'en' ? "Technical notes, tutorials, and thoughts on bioinformatics methodology." : "技术笔记、教程以及关于生物信息学方法的思考。"}>
+            {t.navigation.notes}
           </SectionTitle>
 
           <div className="space-y-6">
-            {NOTES.map((note) => (
+            {t.notes.map((note) => (
               <div key={note.id} className="group relative bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-primary-300 dark:hover:border-primary-700 transition-all">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
                   <div className="flex items-center gap-3">
@@ -358,7 +384,7 @@ const App: React.FC = () => {
                   {note.description}
                 </p>
                 <div className="mt-4 flex items-center text-primary-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0">
-                  Read more <ChevronRight size={16} />
+                  {t.ui.readMore} <ChevronRight size={16} />
                 </div>
               </div>
             ))}
@@ -366,7 +392,7 @@ const App: React.FC = () => {
           
           <div className="mt-8 text-center">
              <a href="https://blog.example.com" className="text-slate-500 hover:text-primary-600 text-sm font-medium inline-flex items-center gap-1 transition-colors">
-               Visit full blog <ExternalLink size={14}/>
+               {t.ui.visitBlog} <ExternalLink size={14}/>
              </a>
           </div>
         </div>
@@ -375,22 +401,18 @@ const App: React.FC = () => {
       {/* --- About Section --- */}
       <section id="about" className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionTitle>About Me</SectionTitle>
+          <SectionTitle>{t.ui.aboutTitle}</SectionTitle>
           
           <div className="prose prose-slate dark:prose-invert max-w-none">
-            <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-300">
-              I am a PhD candidate in Epidemiology and Biostatistics at Guangxi Medical University, mentored by Prof. Mo Zengnan. My academic journey began with a Bachelor's in Preventive Medicine, followed by a Master's degree where I started focusing on the genetic epidemiology of chronic non-communicable diseases.
-            </p>
-            <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-300 mt-4">
-              Currently, my research bridges the gap between clinical data and complex genomics. I specialize in utilizing <strong className="text-primary-600 dark:text-primary-400">R and Python</strong> to build analysis pipelines for single-cell RNA sequencing and spatial transcriptomics. I am particularly interested in how genetic factors influence cardiovascular and renal diseases.
-            </p>
-            <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-300 mt-4">
-              I believe in <em className="italic">literate programming</em>. In my projects, I document my code extensively with Chinese comments and maintain detailed Markdown documentation to ensure reproducibility and clarity for my team.
-            </p>
+            {t.personalInfo.bio.map((paragraph, index) => (
+               <p key={index} className="text-lg leading-relaxed text-slate-600 dark:text-slate-300 mt-4 first:mt-0">
+                  {paragraph}
+               </p>
+            ))}
 
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-10 mb-6">Publications</h3>
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-10 mb-6">{t.ui.publicationsTitle}</h3>
             <ul className="space-y-4 list-none pl-0">
-              {PUBLICATIONS.map((pub) => (
+              {t.publications.map((pub) => (
                 <li key={pub.id} className="pl-4 border-l-2 border-slate-200 dark:border-slate-700">
                   <p className="text-slate-700 dark:text-slate-300 italic">{pub.citation}</p>
                   <div className="mt-1 flex gap-3">
@@ -415,19 +437,19 @@ const App: React.FC = () => {
       {/* --- Contact Section --- */}
       <section id="contact" className="py-20 bg-slate-900 text-slate-300">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">Let's Connect</h2>
+          <h2 className="text-3xl font-bold text-white mb-6">{t.ui.connectTitle}</h2>
           <p className="mb-10 text-lg text-slate-400">
-            Open for collaborations on single-cell analysis pipelines and genetic epidemiology research.
+            {t.ui.connectDesc}
           </p>
           
           <div className="flex justify-center gap-8 mb-12">
-            <a href={`mailto:${PERSONAL_INFO.email}`} className="flex flex-col items-center gap-2 hover:text-primary-400 transition-colors">
+            <a href={`mailto:${CONTACT_INFO.email}`} className="flex flex-col items-center gap-2 hover:text-primary-400 transition-colors">
               <div className="p-4 bg-slate-800 rounded-full">
                 <Mail size={24} />
               </div>
               <span className="text-sm">Email</span>
             </a>
-            <a href={PERSONAL_INFO.github} className="flex flex-col items-center gap-2 hover:text-primary-400 transition-colors">
+            <a href={CONTACT_INFO.github} className="flex flex-col items-center gap-2 hover:text-primary-400 transition-colors">
               <div className="p-4 bg-slate-800 rounded-full">
                 <Github size={24} />
               </div>
@@ -443,5 +465,27 @@ const App: React.FC = () => {
 
           <form className="max-w-md mx-auto space-y-4 text-left hidden sm:block">
              <div className="grid grid-cols-2 gap-4">
-                <input type="text" placeholder="Name" className="bg-slate-800 border-none rounded-lg p-3 w-full focus:ring-2 focus:ring-primary-500" />
-                <input type="email" placeholder="
+                <input type="text" placeholder={lang === 'en' ? "Name" : "姓名"} className="bg-slate-800 border-none rounded-lg p-3 w-full focus:ring-2 focus:ring-primary-500" />
+                <input type="email" placeholder={lang === 'en' ? "Email" : "邮箱"} className="bg-slate-800 border-none rounded-lg p-3 w-full focus:ring-2 focus:ring-primary-500" />
+             </div>
+             <textarea placeholder={lang === 'en' ? "Message" : "留言内容"} rows={4} className="bg-slate-800 border-none rounded-lg p-3 w-full focus:ring-2 focus:ring-primary-500"></textarea>
+             <button type="button" className="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 rounded-lg transition-colors">
+               {t.ui.sendMessage}
+             </button>
+          </form>
+
+        </div>
+      </section>
+
+      {/* --- Footer --- */}
+      <footer className="py-8 bg-slate-950 text-slate-500 text-sm text-center border-t border-slate-900">
+        <p>© {new Date().getFullYear()} {t.personalInfo.name}. All rights reserved.</p>
+        <p className="mt-2">
+          {t.ui.footerText}
+        </p>
+      </footer>
+    </div>
+  );
+};
+
+export default App;
